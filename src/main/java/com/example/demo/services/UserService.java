@@ -8,5 +8,6 @@ public interface UserService {
 
     void createNewUser(String userName, String pass, String email);
     List<UserModel> getAllUsers();
-    
+    List<UserModel> findByName(String name);
+    List<UserModel> findByEmail(String email);
 }

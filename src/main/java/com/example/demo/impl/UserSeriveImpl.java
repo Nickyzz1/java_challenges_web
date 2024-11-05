@@ -25,4 +25,16 @@ public class UserSeriveImpl implements UserService {
     public List<UserModel> getAllUsers() {
        return userRepository.findAll();
     }
+
+    @Override
+    public List<UserModel> findByName(String name) {
+        
+        return userRepository.findByUserNameCol(name);
+    }
+
+    @Override
+    public List<UserModel> findByEmail(String email) {
+        
+        return userRepository.findByEmailCol(email);
+    }
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.MyEmailValidator;
+import com.example.demo.MyPasswordValidator;
 import com.example.demo.models.UserModel;
 import com.example.demo.services.UserService;
 
@@ -25,9 +27,29 @@ public class UserAccountController {
     @SuppressWarnings("rawtypes")
     @GetMapping("/{userName}/{userPass}/{userEmail}")
     public ResponseEntity createUser (@PathVariable String userName, @PathVariable String userPass, @PathVariable String userEmail) {
-        userService.createNewUser(userName, userPass, userEmail);
-        String msg = "User criado com sucesso";
-        return ResponseEntity.ok(msg);
+
+        String msg = "Default";
+
+        if(userService.findByName(userName).isEmpty() && userService.findByEmail(userEmail).isEmpty()){
+            if (MyEmailValidator.Validate(userEmail)) {
+                
+                if (MyPasswordValidator.Validate(userPass)) {
+                    userService.createNewUser(userName, userPass, userEmail);
+                    msg = "User criado com sucesso";
+                    return ResponseEntity.ok(msg);
+                }
+                msg = "Sua senha não atinge as normas de segurança, atenção aos requisitos: Possuir ao menos 8 caracteres; Ter letras maiusculas; Ter letras minusculas; Ter números ";
+                return ResponseEntity.badRequest().body(msg);
+            }
+
+            msg = "Seu email não passou na verificação! Seu email deve ter mais de 4 caracteres e possuir @ e .com ";
+
+            return ResponseEntity.badRequest().body(msg);
+        }
+
+        msg = "O usuário já existe no banco de dados!";
+        return ResponseEntity.badRequest().body(msg);
+
     }
 
     @GetMapping

@@ -13,9 +13,9 @@ public class UserModel {
 
     private Long id;
     @Column(name = "userName")
-    private String userNameCol;
+    private String userNameCol; // é com esses nomes que se faz as consultas ao reposit´toio
     @Column(name = "userPass")
-    private String passWordCol;
+    private String passWordCol; // esse é o nome que eu devo colocar quando eu criar um métood no repositório
     @Column(name = "userEmail")
     private String emailCol;
 
