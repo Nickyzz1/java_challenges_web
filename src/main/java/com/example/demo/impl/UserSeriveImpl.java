@@ -37,4 +37,9 @@ public class UserSeriveImpl implements UserService {
         
         return userRepository.findByEmailCol(email);
     }
+
+    @Override
+    public void deleteAll() {
+        userRepository.deleteAll();
+    }
 }

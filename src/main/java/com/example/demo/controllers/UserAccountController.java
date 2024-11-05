@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.MyEmailValidator;
 import com.example.demo.MyPasswordValidator;
+import com.example.demo.impl.UserSeriveImpl;
 import com.example.demo.models.UserModel;
 import com.example.demo.services.UserService;
 
@@ -24,11 +26,12 @@ public class UserAccountController {
         this.userService = userService;
     }
 
+    String msg = "Default";
+
     @SuppressWarnings("rawtypes")
+
     @GetMapping("/{userName}/{userPass}/{userEmail}")
     public ResponseEntity createUser (@PathVariable String userName, @PathVariable String userPass, @PathVariable String userEmail) {
-
-        String msg = "Default";
 
         if(userService.findByName(userName).isEmpty() && userService.findByEmail(userEmail).isEmpty()){
             if (MyEmailValidator.Validate(userEmail)) {
@@ -56,5 +59,12 @@ public class UserAccountController {
     public ResponseEntity<List<UserModel>> getAll() {
         List<UserModel> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/delete") 
+    public ResponseEntity<String> delete() { // retorno dentro do ok do responseentity
+        userService.deleteAll();
+        msg = "usuários deletados com sucesso";
+        return ResponseEntity.ok(msg);
     }
 }
