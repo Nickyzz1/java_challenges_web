@@ -1,0 +1,67 @@
+// beckend pega requisçoes http
+// put : é para update memso id
+// patch : nn muda as informações, só endereco 
+// como enviar dados para backend --> json
+status : 500(erro interno no servidor), 418(i not a cheached) 400(bad-request) requisição incorreta, mandou a requisição faltando valor, 200(deu certo), 404(not found)
+// job: receber requisçoes e fazer controladores (controllers)
+// rodar esse f5
+// rodar do trevis dotnet run
+
+
+ Os DTOs são usados para encapsular dados que serão transferidos em uma única unidade, reduzindo o número de chamadas entre as camadas.
+
+ Os DTOs são usados para encapsular dados que serão transferidos em uma única unidade, reduzindo o número de chamadas entre as camadas.
+
+ Redução de Chamadas: Ao usar um DTO, você pode agrupar múltiplos dados em um único objeto, reduzindo a quantidade de chamadas necessárias para transferir informações entre sistemas ou camadas.
+
+ // nos services ficam as interfaces
+
+ // implementations ficam as implementações das interfaces
+
+ // sprng = freamework para bekend
+
+ dependencia: recurso que uma classe precisa para funcionar, por exemplo, aclasse a precisa da clasde b para funcionar, entt a classe a tem dependencia na b
+
+ // criar nova instancia = criar novos objetos
+ // Nova Instância: É a criação de um novo objeto de uma classe, com seu próprio estado e dados, independente de outras instâncias.
+
+Prototype
+O que é?: Cada vez que você pede (ou "solicita") um bean do tipo prototype, o Spring cria uma nova instância desse bean.
+
+2. Request
+O que é?: Um novo bean é criado para cada requisição HTTP que chega à sua aplicação web. Quando a requisição termina, o bean é descartado.
+Quando usar?: Use quando você precisa de um bean que deve ser exclusivo para cada pedido de um usuário. É útil em aplicações web onde cada usuário pode fazer múltiplas requisições.
+
+3. Session
+O que é?: Um novo bean é criado para cada sessão de usuário. Isso significa que o bean dura enquanto o usuário estiver usando a aplicação, mas será descartado quando a sessão terminar.
+Quando usar?: Use quando você precisa de informações ou estado que devem ser mantidos durante toda a interação do usuário com a aplicação.
+
+Prototype: Novo copo a cada pedido.
+Request: Novo prato a cada pedido de comida.
+Session: Um cartão de fidelidade durante a visita à cafeteria.
+
+serviço: é a interface
+impl: implementa o serviço
+repositories: gerencia a conexão cpom bando de dados
+controller: gerencia as requisções http
+
+controllers:
+
+Receber Requisições: A controller recebe as requisições do cliente. Isso pode incluir requisições para obter dados, criar novos registros, atualizar ou deletar registros, etc.
+
+Delegar Chamadas ao Serviço: Após receber uma requisição, a controller delega as chamadas para a camada de serviço. A lógica de negócio é tratada na camada de serviço, enquanto a controller apenas chama os métodos apropriados.
+
+Retornar Respostas: Depois que o serviço processa a solicitação, a controller pega o resultado e o transforma em uma resposta adequada para o cliente, geralmente em formato JSON ou HTML.
+
+Manipular Erros: A controller pode lidar com erros e exceções que ocorrem durante o processamento da solicitação, retornando mensagens de erro apropriadas.
+
+http://localhost:8080/cities
+
+métdoos comuns do jpa repository:
+
+O JpaRepository fornece automaticamente métodos CRUD para operações comuns, como:
+
+findAll() — para buscar todos os registros.
+save() — para salvar ou atualizar um registro.
+findById() — para buscar um registro pelo ID.
+delete() — para deletar um registro.
