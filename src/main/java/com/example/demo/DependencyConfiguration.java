@@ -7,9 +7,11 @@ import org.springframework.context.annotation.Scope;
 import com.example.demo.impl.CitiesServiceImpl;
 import com.example.demo.impl.LoginServiceImpl;
 import com.example.demo.impl.ProductServiceImpl;
+import com.example.demo.impl.UserSeriveImpl;
 import com.example.demo.services.CitiesService;
 import com.example.demo.services.LoginService;
 import com.example.demo.services.ProductService;
+import com.example.demo.services.UserService;
 
 @Configuration
 public class DependencyConfiguration {
@@ -32,6 +34,10 @@ public class DependencyConfiguration {
     @Bean
     public CitiesService citiesService() {
         return  new CitiesServiceImpl();
+    }
+    @Bean
+    public UserService userService () {
+        return new UserSeriveImpl();
     }
 
 }
