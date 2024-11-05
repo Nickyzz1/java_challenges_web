@@ -42,4 +42,9 @@ public class UserSeriveImpl implements UserService {
     public void deleteAll() {
         userRepository.deleteAll();
     }
+
+    @Override
+    public void updatePass(String newPass) {
+        userRepository.updatePassWordCol(newPass)
+    }
 }
