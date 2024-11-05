@@ -17,7 +17,7 @@ import com.example.demo.models.UserModel;
 import com.example.demo.services.UserService;
 
 @RestController
-@RequestMapping("/create")
+@RequestMapping("/user")
 public class UserAccountController {
     private final UserService userService;
 
@@ -30,7 +30,7 @@ public class UserAccountController {
 
     @SuppressWarnings("rawtypes")
 
-    @GetMapping("/{userName}/{userPass}/{userEmail}")
+    @GetMapping("/create/{userName}/{userPass}/{userEmail}")
     public ResponseEntity createUser (@PathVariable String userName, @PathVariable String userPass, @PathVariable String userEmail) {
 
         if(userService.findByName(userName).isEmpty() && userService.findByEmail(userEmail).isEmpty()){
