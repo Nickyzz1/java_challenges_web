@@ -11,5 +11,5 @@ public interface UserService {
     List<UserModel> findByName(String name);
     List<UserModel> findByEmail(String email);
     void deleteAll();
-    void updatePass(String newPass);
+    void updatePassByUserName(String userName, String newPass);
 }

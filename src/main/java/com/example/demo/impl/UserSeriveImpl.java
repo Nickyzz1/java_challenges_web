@@ -44,7 +44,7 @@ public class UserSeriveImpl implements UserService {
     }
 
     @Override
-    public void updatePass(String newPass) {
-        userRepository.updatePassWordCol(newPass)
+    public void updatePassByUserName(String userName, String newPass) {
+        userRepository.updatePassWordColByUserName(userName, newPass);
     }
 }

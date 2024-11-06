@@ -2,17 +2,17 @@ package com.example.demo.controllers;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.MyEmailValidator;
 import com.example.demo.MyPasswordValidator;
-import com.example.demo.impl.UserSeriveImpl;
 import com.example.demo.models.UserModel;
 import com.example.demo.services.UserService;
 
@@ -66,5 +66,42 @@ public class UserAccountController {
         userService.deleteAll();
         msg = "usuários deletados com sucesso";
         return ResponseEntity.ok(msg);
+    }
+    //http://localhost:8080/user/updatePass/nini/123@@123Ni/123/123
+
+    // [{"id":7,"userNameCol":"nini","passWordCol":"123@@123Ni","emailCol":"ni@email.com"}]
+    @GetMapping("/updatePass/{userName}/{oldPass}/{newPass}/{repPass}")
+    public ResponseEntity<String> updatePassword(@PathVariable String userName, @PathVariable String newPass, @PathVariable String oldPass, @PathVariable String repPass) {
+        if(!userService.findByName(userName).isEmpty()){
+
+            List<UserModel> currUser = userService.findByName(userName);
+
+            System.out.println("achou o user");
+
+            if(currUser.get(0).getPassWordCol().equals(oldPass)) // pq ele retorna uma lista de usuários, e como pode haver mais que um deve se específicar que é o primeiro
+            {
+                System.out.println("achou o password");
+
+                if (newPass.equals(repPass)) { 
+                    if(MyPasswordValidator.Validate(newPass)) {
+
+                        userService.updatePassByUserName(userName, newPass);
+                        msg = "Senha atualizada com sucesso!";
+                        System.out.println("atualizou");
+                        return ResponseEntity.ok(msg);
+                    }
+                    msg = "A nova senha precisa atingir os requistos: Possuir ao menos 8 caracteres; Ter letras maiusculas; Ter letras minusculas; Ter números";
+                    return ResponseEntity.ok(msg);
+
+                }
+                msg = "As senhas e a repetição de senha devem ser iguais";
+                return ResponseEntity.badRequest().body(msg);
+            } 
+
+            msg = "As senha atual está incorreta para o usuário";
+            return ResponseEntity.badRequest().body(msg);
+        }
+        msg = "O usuário não existe no banco";
+        return ResponseEntity.badRequest().body(msg);
     }
 }

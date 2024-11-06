@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.models.UserModel;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface UserRepositoy extends JpaRepository<UserModel, Long> {
@@ -15,9 +18,11 @@ public interface UserRepositoy extends JpaRepository<UserModel, Long> {
     List<UserModel> findByUserNameCol(String name);
     List<UserModel> findByEmailCol(String email);
 
-    @Modifying // Indica que é uma operação de modificação
-    @Query("UPDATE UserModel u SET u.passWordCol = ?1 WHERE u.userNameCol = ?2")
-    void updatePassWordCol(String newPass, String userName);
+    @Modifying
+    @Transactional
+    @Query("UPDATE UserModel u SET u.passWordCol = :newPass WHERE u.userNameCol = :userName")
+    void updatePassWordColByUserName(@Param("userName") String userName, @Param("newPass") String newPass); // o nome do parâmetro precisa ser o mesmo nome da query
+
 
 
 }
