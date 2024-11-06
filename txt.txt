@@ -65,3 +65,5 @@ findAll() — para buscar todos os registros.
 save() — para salvar ou atualizar um registro.
 findById() — para buscar um registro pelo ID.
 delete() — para deletar um registro.
+
+trevisan didaticts web

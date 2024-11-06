@@ -17,7 +17,7 @@ public class UserModel {
     @Column(name = "userPass")
     private String passWordCol; // esse é o nome que eu devo colocar quando eu criar um métood no repositório
     @Column(name = "userEmail")
-    private String emailCol;
+    private String emailCol; // esse nome nn pode começare com maiúsculo
 
     public UserModel () {}
 

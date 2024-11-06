@@ -21,6 +21,7 @@ public interface UserRepositoy extends JpaRepository<UserModel, Long> {
     @Modifying
     @Transactional
     @Query("UPDATE UserModel u SET u.passWordCol = :newPass WHERE u.userNameCol = :userName")
+    // @Query("UPDATE UserModel u SET u.passWordCol = :newPass WHERE u.userNameCol = :userName or u.emailCol = :userName")
     void updatePassWordColByUserName(@Param("userName") String userName, @Param("newPass") String newPass); // o nome do parâmetro precisa ser o mesmo nome da query
 
 
